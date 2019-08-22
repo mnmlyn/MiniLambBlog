@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传ajax-Demo</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    File to upload: <input type="file" name="my_any" id="my_id"><br/>
+    <input type="button" value="Press" onclick="postData()"> to upload the file!
+</body>
+<script>
+    function postData(){
+        var formData = new FormData();
+        formData.append('e', $('#my_id')[0].files[0]);
+        $.ajax({
+            url:'../s/upload', /*接口域名地址*/
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+                console.log(res.data);
+            }
+        })
+    }
+
+</script>
+</html>

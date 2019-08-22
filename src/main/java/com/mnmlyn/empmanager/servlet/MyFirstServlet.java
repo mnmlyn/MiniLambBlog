@@ -2,6 +2,10 @@ package com.mnmlyn.empmanager.servlet;
 
 import com.mnmlyn.empmanager.DAO.impl.EmpDAOImpl;
 import com.mnmlyn.empmanager.entry.EmpDO;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -12,7 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -76,12 +82,48 @@ public class MyFirstServlet extends HttpServlet {
         } else if ("delete".equals(uri)) {
             String idStr = req.getParameter("id");
             if (!StringUtils.isEmpty(idStr)) {
-                try{
+                try {
                     int id = Integer.parseInt(idStr);
                     empDAO.deleteEmpById(id);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
             resp.sendRedirect("list");
+        } else if ("upload".equals(uri)) {
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            File repository = (File)getServletContext().getAttribute("javax.servlet.context.tempdir");
+            factory.setRepository(repository);
+
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            try {
+                List<FileItem> items = upload.parseRequest(req);
+                Iterator<FileItem> iter = items.iterator();
+                while (iter.hasNext()) {
+                    FileItem item = iter.next();
+
+                    // Process a file upload
+                    if (!item.isFormField()) {
+                        String fieldName = item.getFieldName();
+                        String fileName = item.getName();
+                        String contentType = item.getContentType();
+                        boolean isInMemory = item.isInMemory();
+                        long sizeInBytes = item.getSize();
+                        System.out.println(fieldName);
+                        System.out.println(fileName);
+                        System.out.println(contentType);
+                        System.out.println(isInMemory);
+                        System.out.println(sizeInBytes);
+
+                        // Process a file upload
+                        File uploadedFile = new File(this.getServletContext().getRealPath("/ext/"+"111.jpg"));
+                        item.write(uploadedFile);
+                    }
+                }
+            } catch (FileUploadException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             dispatchPath = "/index.jsp";
         }

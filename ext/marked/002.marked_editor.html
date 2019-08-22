@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        #md{
+            height: 200px;
+        }
+        #md{
+            resize: none;
+        }
+        #html{
+            border: solid 1px darkgrey;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="header" class="text-center">MarkDown解析器</div>
+<div class="container">
+    <div>
+        <div>
+            <textarea id="md" placeholder="请输入Markdown代码"></textarea>
+        </div>
+        <div id="html"></div>
+    </div>
+</div>
+</body>
+<script>
+    $("#md").on("keyup blur",function () {
+        $('#html').html(marked($("#md").val()))
+    })
+</script>
+
+</html>

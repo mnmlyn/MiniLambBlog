@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>滴水穿石</title>
+    <!-- Bootstrap-->
+    <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- 导航条-->
+<div th:replace="component/common :: fg-navbar"></div>
+
+<!-- 页面内容 -->
+<div class="container-fluid" id="main-content">
+    <!-- 轮播图 -->
+    <div id="carousel-index-page" class="carousel slide" data-ride="carousel" data-pause="null">
+        <!-- 轮播图指示器 -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-index-page" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-index-page" data-slide-to="1"></li>
+            <li data-target="#carousel-index-page" data-slide-to="2"></li>
+        </ol>
+
+        <!-- 轮播图条目-->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="static/img/carousel-1.jpg" alt="">
+                <div class="carousel-caption">
+                    <!-- 不设置题目 -->
+                </div>
+            </div>
+            <div class="item">
+                <img src="static/img/carousel-2.jpg" alt="">
+                <div class="carousel-caption">
+                    <!-- 不设置题目 -->
+                </div>
+            </div>
+            <div class="item">
+                <img src="static/img/carousel-3.jpg" alt="">
+                <div class="carousel-caption">
+                    <!-- 不设置题目 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 轮播图控制 -->
+        <a class="left carousel-control" href="#carousel-index-page" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-index-page" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <!-- 页面主体内容 -->
+    <div class="row">
+        <!-- 左边主体内容 -->
+        <div class="col-md-9" id="main-content-col">
+            <div class="mb-note">
+                <h2>热门文章</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-1.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-2.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-3.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-4.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-5.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                        <div class="mb-note-item">
+                            <a href="#">
+                                <img src="static/img/small/small-6.jpg" alt="img">
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-note">
+                <h2>最新发布</h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-1.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                </p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-2.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-3.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-4.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-5.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里
+                                    一些内容在这里一些内容在这里一些内容在这里一些内容在这里一些内容在这里</p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mb-note-item mb-note-bg-item">
+                            <a href="#">
+                                <div class="mb-note-bg-item-img">
+                                    <img src="static/img/small/small-6.jpg" alt="img">
+                                </div>
+                                <h3>内容的标题，这是啥呢？内容的标题，这是啥呢？内容的标题，这是啥呢？</h3>
+                                <p>一些内容在这里一些内容在这里</p>
+                                <!-- 文章信息统计 -->
+                                <div class="row mb-note-bg-item-info">
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                    <span class="mb-note-info">阅读次数</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 右侧边栏内容 -->
+        <div class="col-md-3" id="side-content-col">
+            <div class="row">
+                <div class="col-md-12 col-sm-4 col-xs-6">
+                    <div class="mb-side-note">
+                        <h1>常用标签</h1>
+                        <div class="mb-side-note-content">
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-4 col-xs-6">
+                    <div class="mb-side-note">
+                        <h1>推荐阅读</h1>
+                        <div class="mb-side-note-content">
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-4 col-xs-6">
+                    <div class="mb-side-note">
+                        <h1>推荐阅读</h1>
+                        <div class="mb-side-note-content">
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</div>
+
+<!-- 页脚 -->
+<div th:replace="component/common :: fg-footer"></div>
+
+<!-- 回到顶部 -->
+<div th:replace="component/common :: fg-goto-top"></div>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

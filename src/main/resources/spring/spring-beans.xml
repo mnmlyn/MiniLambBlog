@@ -9,6 +9,9 @@
 
     <context:property-placeholder location="classpath:config/db.properties"/>
     <context:annotation-config />
+    <context:component-scan base-package="com.mnmlyn.blog.dao.impl" />
+    <context:component-scan base-package="com.mnmlyn.blog.service.impl" />
+
 
     <bean id="empDAO" class="com.mnmlyn.empmanager.DAO.impl.EmpDAOImpl" />
 
