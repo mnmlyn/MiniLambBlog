@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>滴水穿石</title>
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="fg-navbar">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/}">滴水穿石</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--/*@thymesVar id="navIndex" type="java.lang.Integer"*/-->
+                <li th:class="${navIndex == 0} ? 'active':''">
+                    <a th:href="@{/}">首页</a>
+                </li>
+                <!--/*@thymesVar id="articleTypeName" type="java.lang.String"*/-->
+                <li th:class="${#strings.equals(articleTypeName,'Java学习')} ? 'active':''">
+                    <a th:href="@{/type/1}">Java学习</a>
+                </li>
+                <li th:class="${#strings.equals(articleTypeName,'前端学习')} ? 'active':''">
+                    <a th:href="@{/type/2}">前端学习</a>
+                </li>
+                <li th:class="${#strings.equals(articleTypeName,'Linux内核')} ? 'active':''">
+                    <a th:href="@{/type/3}">Linux内核</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">关于</a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<!-- 页脚 -->
+<footer th:fragment="fg-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <ul class="mb-links">
+                    <li>
+                        <span>你好，人类！</span>
+                    </li>
+                    <li>
+                        <a href="#">关于本站</a>
+                    </li>
+                    <li>
+                        <a href="#">Java</a>
+                    </li>
+                    <li>
+                        <a href="#">前端</a>
+                    </li>
+                    <li>
+                        <a href="#">Linux内核</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <ul class="mb-links">
+                    <li>
+                        <span>Copyright &copy; 2020, mnmlyn All Rights Reserved.</span>
+                    </li>
+                    <li>
+                        <a href="http://beian.miit.gov.cn">京ICP备19042216号-1</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 回到顶部 -->
+<div class="mb-to-top" th:fragment="fg-goto-top">
+    <ul>
+        <li>
+            <a class="btn btn-default" href="#" role="button">
+                回到顶部
+            </a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

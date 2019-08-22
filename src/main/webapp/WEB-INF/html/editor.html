@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>编辑</title>
+    <meta charset="UTF-8">
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+        }
+        .mb-container {
+            height: 100%;
+        }
+        #editor {
+            width: 40%;
+            position: absolute;
+            top: 35px;
+            bottom: 0;
+            left: 0;
+            padding: 1px;
+        }
+        input[type=file] {
+            display: inline;
+        }
+        #md{
+            width: 100%;
+            height: 100%;
+            resize: none;
+        }
+        #mdhtml{
+            position: absolute;
+            left: 40%;
+            right: 10px;
+            height: 100%;
+            border: solid 1px darkgrey;
+            margin-left: 10px;
+            overflow: scroll;
+        }
+        #title {
+            width: 400px;
+        }
+        #imgPrev {
+            max-width: 100%;
+        }
+        @media(max-width: 560px) {
+            #editor {
+                top: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="mb-container">
+    <form class="form-inline">
+<!--        /* onclick="postData(false)" */-->
+        <input type="button" class="btn btn-success" value="发表" onclick="validateShowPost()">
+        <input type="button" class="btn btn-primary" id="saveBlog" value="存草稿" onclick="postData(true)">
+        <input type="button" class="btn btn-info" id="fullScreen" value="预览">
+        <input type="button" class="btn btn-warning" id="insertPic" value="图片" data-toggle="modal" data-target="#picInsertModal" tabindex="-1">
+        <label class="sr-only" for="title">题目</label>
+        <input type="text" class="form-control" id="title" placeholder="请输入题目">
+        <input type="hidden" id="postKey" value="1476">
+        <!--/*@thymesVar id="randomKey" type="java.lang.String"*/-->
+        <input type="hidden" id="getKey" th:value="${randomKey}">
+    </form>
+    <div id="editor">
+        <textarea id="md" placeholder="请输入Markdown格式的文本"></textarea>
+    </div>
+    <div id="mdhtml" class="mb-article-content">
+        <p>此处将显示预览</p>
+    </div>
+</div>
+
+<!-- 插入图片Modal -->
+<div class="modal fade" id="picInsertModal" tabindex="-1" role="dialog" aria-labelledby="picInsertModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="picInsertModalLabel">插入图片</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input id="uploadPic" type="file" accept="image/x-png,image/gif,image/jpeg,image/bmp"/>
+                </div>
+                <div>
+                    <img id="imgPrev" th:src="@{/static/img/postPic.gif}" alt="预览"/>
+                    <p id="imgPrevTip" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btnUploadPic">插入</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 插入图片Modal -->
+<div class="modal fade" id="postArticleModal" tabindex="-1" role="dialog" aria-labelledby="postArticleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="postArticleModalLabel">发表文章</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" id="title_in_modal">此处是题目</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_type_select" class="col-sm-2 control-label">文章类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="article_type_select">
+                                <option value="0">正在获取类型...</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="postBlog" onclick="postData(false)">发表</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/summary.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+    $("#md").on("keyup blur",function () {
+        $('#mdhtml').html(marked($("#md").val()))
+    });
+
+    function isEmpty(data) {
+        return data.length == 0 || $.trim(data).length == 0;
+    }
+
+    function canPost() {
+        return !isEmpty($("#md").val()) &&
+                !isEmpty($("#mdhtml").html()) &&
+                !isEmpty($("#title").val());
+    }
+
+    // 校验
+    function validate(formData) {
+        return !(isEmpty(formData.get("title"))
+            || isEmpty(formData.get("md"))
+            || isEmpty(formData.get("content"))
+            || isEmpty(formData.get("isDraft"))
+            || isEmpty(formData.get("articleType"))
+            || isEmpty(formData.get("summary")));
+    }
+
+    // 提交数据
+    function postData(isDraft){
+        var formData = new FormData();
+        formData.append('md', $("#md").val());
+        var articleHtml = $("#mdhtml").html();
+        formData.append('content', articleHtml);
+        formData.append('isDraft', isDraft);
+        formData.append('title', $("#title").val());
+        formData.append('postKey', $("#postKey").val());
+        formData.append('getKey', $("#getKey").val());
+        var articleType = isDraft ? "0" : $("#article_type_select").val();
+        formData.append('articleType', articleType);
+        var summary = Generate_Brief(articleHtml, 500);
+        formData.append('summary', summary);
+        if (!validate(formData)) {
+            alert("题目或内容为空");
+            return;
+        }
+        $("#postBlog").attr("disabled","disabled");
+        $.ajax({
+            url:'insert', /*接口域名地址*/
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+                console.log(res.data);
+                var jsonObj = $.parseJSON(res);
+                if (jsonObj.code == "200") {
+                    alert("发表成功");
+                    var ctxPath = /*[[@{/}]]*/'';
+                    window.location.replace(ctxPath+"article/"+jsonObj.data);
+                } else {
+                    alert(jsonObj.message);
+                    $("#postBlog").removeAttr("disabled");
+                }
+            },
+            error:function (err) {
+                console.log(err.data);
+                alert(err);
+                $("#postBlog").removeAttr("disabled");
+            }
+        })
+    }
+
+    function validateShowPost() {
+        if (!canPost()) {
+            alert("题目或内容为空");
+            return;
+        }
+        $("#postBlog").attr("disabled","disabled");
+        $("#article_type_select").empty();
+        $("#article_type_select").append('<option value="0">正在获取类型...</option>');
+        $("#title_in_modal").text($("#title").val());
+        $.ajax({
+            url:'articleTypes',
+            type:'get',
+            success:function (res) {
+                var jsonObj = $.parseJSON(res);
+                if (jsonObj.code == "200") {
+                    $("#article_type_select").empty();
+                    $.each(jsonObj.data,function (index, value) {
+                        $("#article_type_select").append('<option value="'+ value.id +'">' + value.typeName+ '</option>');
+                    });
+                    $("#postBlog").removeAttr("disabled");
+                } else {
+                    $("#article_type_select").empty();
+                    $("#article_type_select").append('<option value="0">获取文章分类失败！</option>');
+                }
+            },
+            error:function () {
+                $("#article_type_select").empty();
+                $("#article_type_select").append('<option value="0">获取文章分类失败！</option>');
+            }
+        });
+        $("#postArticleModal").modal("show");
+    }
+
+    // 预览与编辑切换
+    var isEdit = true;
+    $("#fullScreen").click(function(){
+        if(isEdit) {
+            isEdit = false;
+            $("#fullScreen").val("编辑");
+            $("#editor").css("display", "none");
+            $("#mdhtml").css("left", "0")
+                .css("overflow", "auto").css("height", "auto");
+            $("html,body").css("overflow-y", "auto");
+        } else {
+            isEdit = true;
+            $("#fullScreen").val("预览");
+            $("#editor").css("display", "");
+            $("#mdhtml").css("left", "40%")
+                .css("overflow", "scroll").css("height", "100%");
+            $("html,body").css("overflow-y", "hidden");
+        }
+
+    });
+
+    function displayUploadTip(tip) {
+        $("#imgPrevTip").text(tip);
+    }
+
+    function displayPicPreview(src, display) {
+        $("#imgPrev").attr("src",src).css("display", display);
+    }
+
+    $("#uploadPic").change(function () {
+        $("#btnUploadPic").removeAttr("disabled");
+        var upImg = $(this)[0].files[0];
+        if (typeof(upImg) == "undefined") {
+            displayUploadTip("");
+            displayPicPreview("", "none");
+        } else if (/image/.test(upImg.type)) {
+            displayUploadTip("");
+            displayPicPreview(URL.createObjectURL(upImg), "");
+        } else {
+            $(this).val("");
+            displayUploadTip("请选择图片格式的文件！！");
+            displayPicPreview("", "none");
+        }
+    });
+
+    $("#btnUploadPic").click(function () {
+        postPic();
+    });
+
+    // 上传图片
+    function postPic() {
+        var upImg = $("#uploadPic")[0].files[0];
+        if (typeof(upImg) == "undefined" || !/image/.test(upImg.type)) {
+            $("#imgPrevTip").text("请选择图片！！");
+            return false;
+        }
+        var formData = new FormData();
+        formData.append('pic', upImg);
+        formData.append('postKey', $("#postKey").val());
+        formData.append('getKey', $("#getKey").val());
+        $("#btnUploadPic").attr("disabled","disabled");
+        $.ajax({
+            url:'uploadPic',
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function (res) {
+                $("#picInsertModal").modal("hide");
+                $("#btnUploadPic").removeAttr("disabled");
+                console.log(res.data);
+                var jsonObj = $.parseJSON(res);
+                if (jsonObj.code == "200") {
+                    alert("上传成功");
+                    alert(jsonObj.data);
+                    $("#md").insertContent("![pic]("+ jsonObj.data +")");
+                    displayPicPreview("", "none");
+                    $("#uploadPic").val("");
+                } else {
+                    alert(jsonObj.message);
+                }
+            },
+            error:function () {
+                $("#btnUploadPic").removeAttr("disabled");
+                displayUploadTip("上传失败");
+            }
+        })
+    }
+
+    $(function() {
+        /* 在textarea处插入文本--Start */
+        (function($) {
+            $.fn.extend({
+                insertContent : function(myValue, t) {
+                    var $t = $(this)[0];
+                    if (document.selection) { // ie
+                        this.focus();
+                        var sel = document.selection.createRange();
+                        sel.text = myValue;
+                        this.focus();
+                        sel.moveStart('character', -l);
+                        var wee = sel.text.length;
+                        if (arguments.length == 2) {
+                            var l = $t.value.length;
+                            sel.moveEnd("character", wee + t);
+                            t <= 0 ? sel.moveStart("character", wee - 2 * t - myValue.length) : sel.moveStart( "character", wee - t - myValue.length);
+                            sel.select();
+                        }
+                    } else if ($t.selectionStart
+                        || $t.selectionStart == '0') {
+                        var startPos = $t.selectionStart;
+                        var endPos = $t.selectionEnd;
+                        var scrollTop = $t.scrollTop;
+                        $t.value = $t.value.substring(0, startPos)
+                            + myValue
+                            + $t.value.substring(endPos,$t.value.length);
+                        this.focus();
+                        $t.selectionStart = startPos + myValue.length;
+                        $t.selectionEnd = startPos + myValue.length;
+                        $t.scrollTop = scrollTop;
+                        if (arguments.length == 2) {
+                            $t.setSelectionRange(startPos - t,
+                                $t.selectionEnd + t);
+                            this.focus();
+                        }
+                    } else {
+                        this.value += myValue;
+                        this.focus();
+                    }
+                }
+            })
+        })(jQuery);
+        /* 在textarea处插入文本--Ending */
+    });
+
+</script>
+
+</html>

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file/>
+<!--        <welcome-file>index.html</welcome-file>-->
     </welcome-file-list>
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -15,12 +15,45 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- 根据后缀来过滤静态资源访问，
+    可以在spring-mvc.xml中配置<mvc:default-servlet-handler/>来代替 -->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.html</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+    <!-- 用于解决spring mvc post请求中文乱码问题 -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- spring mvc的默认分发器 -->
     <servlet>
-        <servlet-name>first</servlet-name>
-        <servlet-class>com.mnmlyn.empmanager.servlet.MyFirstServlet</servlet-class>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
-        <servlet-name>first</servlet-name>
-        <url-pattern>/s/*</url-pattern>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 </web-app>

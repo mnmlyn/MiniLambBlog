@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>滴水穿石</title>
+    <!-- Bootstrap-->
+    <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- 导航条-->
+<div th:replace="component/common :: fg-navbar"></div>
+
+<!-- 页面内容 -->
+<div class="container-fluid" id="main-content">
+
+    <!-- 页面主体内容 -->
+    <div class="row">
+        <!-- 左边主体内容 -->
+        <div class="col-md-9" id="main-content-col">
+
+            <div class="mb-note">
+                <div class="mb-detail">
+                    <div class="mb-article-title">
+                        <!--/*@thymesVar id="article" type="com.mnmlyn.blog.entity.ArticleDO"*/-->
+                        <h1 th:text="${article.getTitle()}">文章标题在此处，醒目</h1>
+                    </div>
+
+                    <!-- 文章作者及阅读数量信息 -->
+                    <div class="mb-article-info">
+                        <ul>
+                            <li>
+                                <span>作者：</span>
+                                <span th:text="${article.getAuthor()}">mnmlyn</span>
+                            </li>
+                            <li>
+                                <span>发布日期：</span>
+                                <span th:text="${#dates.format(article.gmtCreate,'yyyy年MM月dd日 HH:mm')}">2020年3月25日</span>
+                            </li>
+<!--                            <li>-->
+<!--                                <span>浏览次数：100</span>-->
+<!--                            </li>-->
+                        </ul>
+                    </div>
+
+                    <div class="mb-article-content" th:utext="${article.getContent()}">
+
+                    </div>
+
+                    <div class="mb-article-type-tag">
+                        <div>
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                            <!--/*@thymesVar id="articleTypeName" type="java.lang.String"*/-->
+                            <a th:href="@{'/type/' + ${article.type}}" th:text="${articleTypeName}">Java学习</a>
+                        </div>
+<!--                        <div>-->
+<!--                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>-->
+<!--                            <a href="#">Java</a>-->
+<!--                            <a href="#">开发</a>-->
+<!--                            <a href="#">InputStream</a>-->
+<!--                            <a href="#">内存管理</a>-->
+<!--                            <a href="#">技术学习</a>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 右侧边栏内容 -->
+        <div class="col-md-3" id="side-content-col">
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 col-sm-4 col-xs-6">-->
+<!--                    <div class="mb-side-note">-->
+<!--                        <h1>常用标签</h1>-->
+<!--                        <div class="mb-side-note-content">-->
+<!--                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+</div>
+
+<!-- 页脚 -->
+<div th:replace="component/common :: fg-footer"></div>
+
+<!-- 回到顶部 -->
+<div th:replace="component/common :: fg-goto-top"></div>
+
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
