@@ -27,3 +27,45 @@ master分支是开发测试完成进行合入的版本。
 首先，如何访问数据库，如何使用Mybatis框架。
 
 那么先实现一个，使用Mybatis框架进行增删改查的简单程序。
+
+1. 引入JUnit，Mysql的连接器，Mybatis。
+2. 在resources文件夹下新建mybatis的xml配置文件。主要是配置数据源和事务管理器。
+
+加入以下格式规范。
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+```
+
+3. 随便建个表，并写出对应的Java类，然后书写emp-mapper.xml
+
+```mysql
+create table emp( id int primary key, name varchar(10), age int);
+```
+
+mapper的格式规范
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+```
+
+搞一个临时数据库用户，用于测试吧，这样就不担心密码泄露了。
+新建用户，赋予初始权限
+```mysql
+create user 'test'@'%' identified by '123456';
+```
+
+或直接新建用户，并同时授权相应库的权限
+```mysql
+grant all on java_jdbc.* to 'test'@'%' identified by '123456';
+```
+
+
+
+
+
+
