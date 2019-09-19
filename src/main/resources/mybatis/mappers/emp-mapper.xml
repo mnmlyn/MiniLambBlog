@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emp">
-    <select id="selectEmp" resultType="com.mnmlyn.empmanager.EmpDO">
+    <select id="selectEmp" resultType="com.mnmlyn.empmanager.entry.EmpDO">
         select id,name,age from emp where id = #{id}
     </select>
 </mapper>
