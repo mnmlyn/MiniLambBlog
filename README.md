@@ -54,6 +54,7 @@ mapper的格式规范
 ```
 
 搞一个临时数据库用户，用于测试吧，这样就不担心密码泄露了。
+（喜闻乐见，果然密码会泄漏，数据库数据被加密，被勒索0.075比特币，然而我不care，goodbye）
 新建用户，赋予初始权限
 ```mysql
 create user 'test'@'%' identified by '123456';
@@ -63,6 +64,8 @@ create user 'test'@'%' identified by '123456';
 ```mysql
 grant all on java_jdbc.* to 'test'@'%' identified by '123456';
 ```
+
+
 
 
 

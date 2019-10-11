@@ -18,7 +18,7 @@ public class EmpDO {
     public EmpDO() {
         System.out.println("init Emp");
         id = 5;
-        name = "11";
+        name = "min";
         age = 18;
     }
 
