@@ -3,7 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emp">
+<!--    <parameterMap id="EmpDO" type="com.mnmlyn.empmanager.entry.EmpDO">-->
+<!--        <parameter property="id" resultMap="id"/>-->
+<!--        <parameter property="name" resultMap="name"/>-->
+<!--        <parameter property="age" resultMap="age"/>-->
+<!--    </parameterMap>-->
+
     <select id="selectEmp" resultType="com.mnmlyn.empmanager.entry.EmpDO">
         select id,name,age from emp where id = #{id}
     </select>
+
+    <select id="listAllEmps" resultType="com.mnmlyn.empmanager.entry.EmpDO">
+        select id,name,age from emp
+    </select>
+
+    <insert id="insertEmp" parameterType="com.mnmlyn.empmanager.entry.EmpDO">
+        insert into emp (name,age) values(#{name},#{age})
+    </insert>
+
+    <delete id="deleteEmpById" parameterType="Integer">
+        delete from emp where id=#{id}
+    </delete>
 </mapper>

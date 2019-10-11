@@ -5,5 +5,6 @@
 </head>
 <body>
     <%="hello"%>
+    <% response.sendRedirect("s/list"); %>
 </body>
 </html>

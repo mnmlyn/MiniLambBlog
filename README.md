@@ -24,6 +24,7 @@ master分支是开发测试完成进行合入的版本。
 
 # 2. 第一期实现
 
+## 2.1. mybatis访问数据库
 首先，如何访问数据库，如何使用Mybatis框架。
 
 那么先实现一个，使用Mybatis框架进行增删改查的简单程序。
@@ -42,7 +43,7 @@ master分支是开发测试完成进行合入的版本。
 3. 随便建个表，并写出对应的Java类，然后书写emp-mapper.xml
 
 ```mysql
-create table emp( id int primary key, name varchar(10), age int);
+create table emp( id int primary key auto_increment, name varchar(10), age int);
 ```
 
 mapper的格式规范
@@ -65,10 +66,6 @@ create user 'test'@'%' identified by '123456';
 grant all on java_jdbc.* to 'test'@'%' identified by '123456';
 ```
 
+## 2.2. 实现基于spring的web项目
 
-
-
-
-
-
-
+能够连接数据库，显示页面，进行增删查
