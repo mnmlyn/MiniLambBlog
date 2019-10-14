@@ -1,0 +1,42 @@
+<%@ page import="com.mnmlyn.blog.entity.ArticleDO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>博客文章列表-myblog</title>
+</head>
+<body>
+<div id="main">
+    <div id="page_head">
+        <h1>文章列表</h1>
+    </div>
+    <hr>
+    <div id="article_list">
+        <table id="article_list_table" border="1" width="100%">
+            <tr>
+                <th width="50%">题目</th>
+                <th width="25%">创建日期</th>
+                <th>作者</th>
+            </tr>
+            <%
+                List<ArticleDO> articles = (List<ArticleDO>)request.getAttribute("articles");
+                if(articles != null) {
+                    for (ArticleDO article : articles) {
+                        String title = article.getTitle();
+                        Date createTime = article.getGmtCreate();
+                        String author = article.getAuthor();
+                        String articleId = article.getArticleId();
+                        out.println(String.format("<tr><td><a href=\"%s/m/p?aid=%s\">%s</a></td>",
+                                request.getContextPath(), articleId, title));
+                        out.println(String.format("<td>%s</td>", createTime));
+                        out.println(String.format("<td>%s</td></tr>", author));
+                    }
+                }
+            %>
+        </table>
+    </div>
+</div>
+</body>
+</html>

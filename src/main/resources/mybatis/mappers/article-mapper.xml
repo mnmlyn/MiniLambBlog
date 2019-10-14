@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="article">
+    <resultMap id="ArticleResultMap" type="com.mnmlyn.blog.entity.ArticleDO">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="article_id" jdbcType="VARCHAR" property="articleId" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="author" jdbcType="VARCHAR" property="author" />
+        <result column="gmt_create" jdbcType="TIME" property="gmtCreate" />
+        <result column="gmt_modify" jdbcType="TIME" property="gmtModify" />
+        <result column="state" jdbcType="TINYINT" property="state" />
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    </resultMap>
+
+    <sql id="article_all_column">
+        id,article_id,title,author,gmt_create,gmt_modify,state,content
+    </sql>
+
+    <sql id="article_simple_column">
+        article_id,title,gmt_create,author
+    </sql>
+
+    <select id="queryArticleByArticleId" resultMap="ArticleResultMap">
+        SELECT
+        <include refid="article_all_column"/>
+        FROM article
+        WHERE
+        article_id = #{articleId}
+    </select>
+
+    <select id="listArticleSimple" resultMap="ArticleResultMap">
+        SELECT
+        <include refid="article_simple_column"/>
+        FROM article
+    </select>
+
+</mapper>
