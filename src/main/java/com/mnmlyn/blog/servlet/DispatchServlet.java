@@ -35,21 +35,31 @@ public class DispatchServlet extends HttpServlet {
         String dispatcherPath = null;
 
         if ("p".equals(uri)) {
-            dispatcherPath = "/WEB-INF/jsp/article.jsp";
             ArticleDO article = null;
             String aid = req.getParameter("aid");
-            if (!StringUtils.isEmpty(aid)) {
+            String about = req.getParameter("about");
+            if (about != null) {
+                aid = "about";
+            }
+            if (!StringUtils.isEmpty(aid) && isAid(aid)) {
                 article = articleService.queryArticleByArticleId(aid);
             }
-            req.setAttribute("articleDO", article);
+            if (article != null) {
+                dispatcherPath = "/WEB-INF/jsp/view.jsp";
+                req.setAttribute("articleDO", article);
+                req.setAttribute("__page__", "article");
+            } else {
+                dispatcherPath = "/WEB-INF/jsp/404.jsp";
+            }
         } else if ("list".equals(uri)) {
-            dispatcherPath = "/WEB-INF/jsp/article_list.jsp";
+            dispatcherPath = "/WEB-INF/jsp/view.jsp";
+            req.setAttribute("__page__", "article_list");
             List<ArticleDO> articles = articleService.listArticleSimple();
             req.setAttribute("articles", articles);
         } else if ("check".equals(uri)) {
             resp.getWriter().println("dispatch ok");
         } else {
-            resp.getWriter().println("404");
+            dispatcherPath = "/WEB-INF/jsp/404.jsp";
         }
 
         if (dispatcherPath != null) {
@@ -70,4 +80,10 @@ public class DispatchServlet extends HttpServlet {
         super.init(config);
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
+
+    private static boolean isAid(String aid) {
+        if (aid == null) return false;
+        return aid.matches("[0-9]+") || "about".equals(aid);
+    }
+
 }

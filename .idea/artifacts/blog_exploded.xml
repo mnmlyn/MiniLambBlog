@@ -28,8 +28,12 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="blog/web/Web" />
-      <element id="directory" name="ue">
-        <element id="dir-copy" path="$PROJECT_DIR$/ext/ueditor1_4_3_3-utf8-jsp" />
+      <element id="directory" name="js" />
+      <element id="directory" name="img">
+        <element id="dir-copy" path="$PROJECT_DIR$/page/img" />
+      </element>
+      <element id="directory" name="css">
+        <element id="dir-copy" path="$PROJECT_DIR$/page/css" />
       </element>
     </root>
   </artifact>

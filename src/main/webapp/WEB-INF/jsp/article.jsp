@@ -1,6 +1,7 @@
 <%@ page import="com.mnmlyn.blog.entity.ArticleDO" %>
+<%@ page import="com.mnmlyn.blog.util.TimeUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%  ArticleDO articleDO = (ArticleDO) request.getAttribute("articleDO");
+<% ArticleDO articleDO = (ArticleDO) request.getAttribute("articleDO");
     String title = "null";
     String content = "null";
     String author = "null";
@@ -9,17 +10,12 @@
         title = articleDO.getTitle();
         content = articleDO.getContent();
         author = articleDO.getAuthor();
-        date = articleDO.getGmtCreate().toString();
+        date = TimeUtil.getDateTimeString(articleDO.getGmtCreate());
     }%>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>博客文章-myblog</title>
-</head>
-<body>
 <div id="main">
     <div id="article_title">
-        <h1><%=title%></h1>
+        <h1><%=title%>
+        </h1>
     </div>
     <hr>
     <div id="article_info">
@@ -44,5 +40,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

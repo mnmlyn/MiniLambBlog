@@ -8,8 +8,8 @@
         <result column="article_id" jdbcType="VARCHAR" property="articleId" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="author" jdbcType="VARCHAR" property="author" />
-        <result column="gmt_create" jdbcType="TIME" property="gmtCreate" />
-        <result column="gmt_modify" jdbcType="TIME" property="gmtModify" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
         <result column="state" jdbcType="TINYINT" property="state" />
         <result column="content" jdbcType="LONGVARCHAR" property="content" />
     </resultMap>
@@ -33,7 +33,7 @@
     <select id="listArticleSimple" resultMap="ArticleResultMap">
         SELECT
         <include refid="article_simple_column"/>
-        FROM article
+        FROM article WHERE state=1
     </select>
 
 </mapper>

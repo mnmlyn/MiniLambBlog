@@ -1,0 +1,131 @@
+body {
+    background-color: #EDEDED;
+    
+}
+
+.header {
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 40px;
+}
+
+.header h1 {
+    font-size: 50px;
+    margin: 0px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #48C1F4;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.topnav a {
+    display: block;
+    float: left;
+    text-decoration: none;
+    font-weight: bold;
+    color: #F8F8F8;
+    padding: 10px 10px;
+}
+
+.topnav a.active_nav {
+    background-color: #F8F8F8;
+    color: #48C1F4;
+}
+
+.topnav a:hover {
+    background-color: #EFEEEE;
+    color: #0CECE1;
+}
+
+.topnav:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.row {
+    width: 100%;
+}
+
+.row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.leftside {
+    float: left;
+    width: 200px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 40px;
+    z-index: -1;
+}
+
+.main {
+    margin-left: 200px;
+}
+
+.middle {
+    float: left;
+    width: 80%;
+}
+
+.rightside {
+    float: right;
+    width: 20%;
+}
+
+.card {
+    background-color: #FFFFFF;
+    margin: 5px;
+    margin-bottom: 15px;
+    padding: 5px 20px;
+}
+
+.selfinfo_img {
+    
+}
+
+.selfinfo_img img {
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+}
+
+.selfinfo_author {
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.footer_info {
+    margin: auto;
+    width: 300px;
+}
+
+@media screen and (max-width: 1000px) {
+    .main {
+        margin-left: 0;
+    }
+    .middle, .rightside {
+        width: 100%;
+    }
+    .leftside {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+  .topnav {
+    position: static;
+  }
+}
