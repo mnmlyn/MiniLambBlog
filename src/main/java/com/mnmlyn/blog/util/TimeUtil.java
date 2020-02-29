@@ -14,6 +14,8 @@ public class TimeUtil {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 
     public static String getDateTimeString(Date date) {
+        System.out.println(sdf.format(date));
+        System.out.println("中文");
         return sdf.format(date);
     }
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sys_info">
+    <resultMap id="SysInfoResultMap" type="com.mnmlyn.blog.entity.SysInfoDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="param_key" jdbcType="VARCHAR" property="paramKey"/>
+        <result column="param_value" jdbcType="VARCHAR" property="paramValue"/>
+    </resultMap>
+    <sql id="sys_info_all_column">
+        id,param_key,param_value
+    </sql>
+
+    <select id="querySysInfoByParamKey" resultMap="SysInfoResultMap">
+        SELECT
+        <include refid="sys_info_all_column"/>
+        FROM sys_info
+        WHERE
+        param_key = #{paramKey}
+    </select>
+
+    <insert id="insertSysInfo" parameterType="com.mnmlyn.blog.entity.SysInfoDO">
+        INSERT INTO `sys_info`
+        (`param_key`,`param_value`)
+        VALUES(
+        #{paramKey},#{paramValue}
+        )
+    </insert>
+
+    <update id="updateSysInfo" parameterType="com.mnmlyn.blog.entity.SysInfoDO">
+        UPDATE sys_info
+        SET param_value=#{paramValue}
+        WHERE param_key=#{paramKey};
+    </update>
+
+
+</mapper>
