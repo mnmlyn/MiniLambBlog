@@ -30,11 +30,15 @@
       <element id="javaee-facet-resources" facet="blog/web/Web" />
       <element id="directory" name="js" />
       <element id="directory" name="img">
-        <element id="dir-copy" path="$PROJECT_DIR$/page/img" />
+        <element id="dir-copy" path="$PROJECT_DIR$/page/oldpage/img" />
       </element>
       <element id="directory" name="css">
-        <element id="dir-copy" path="$PROJECT_DIR$/page/css" />
+        <element id="dir-copy" path="$PROJECT_DIR$/page/oldpage/css" />
       </element>
+      <element id="directory" name="static">
+        <element id="dir-copy" path="$PROJECT_DIR$/page/static" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/page/index.html" />
     </root>
   </artifact>
 </component>

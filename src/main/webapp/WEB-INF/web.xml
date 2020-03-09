@@ -25,11 +25,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>dispatcher</servlet-name>
-        <servlet-class>com.mnmlyn.blog.servlet.DispatchServlet</servlet-class>
+        <servlet-name>oldDispatcher</servlet-name>
+        <servlet-class>com.mnmlyn.blog.servlet.OldDispatchServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>oldDispatcher</servlet-name>
         <url-pattern>/m/*</url-pattern>
     </servlet-mapping>
+
+<!--    <servlet>-->
+<!--        <servlet-name>dispatcher</servlet-name>-->
+<!--        <servlet-class>com.mnmlyn.blog.servlet.DispatchServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>dispatcher</servlet-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </servlet-mapping>-->
 </web-app>
