@@ -24,4 +24,9 @@ public class ArticleDAOImpl extends BaseDAO implements ArticleDAO {
     public List<ArticleDO> listArticleSimple() {
         return getSqlSessionTemplate().selectList("article.listArticleSimple");
     }
+
+    @Override
+    public int insertArticle(ArticleDO articleDO) {
+        return getSqlSessionTemplate().insert("article.insertArticle", articleDO);
+    }
 }

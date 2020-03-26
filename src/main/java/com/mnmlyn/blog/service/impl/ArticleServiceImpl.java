@@ -29,4 +29,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDO> listArticleSimple() {
         return articleDAO.listArticleSimple();
     }
+
+    @Override
+    public int insertArticle(ArticleDO articleDO) {
+        return articleDAO.insertArticle(articleDO);
+    }
 }

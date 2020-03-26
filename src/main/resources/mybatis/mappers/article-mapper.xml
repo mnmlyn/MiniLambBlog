@@ -36,4 +36,14 @@
         FROM article WHERE state=1
     </select>
 
+    <!-- 插入一篇文章 -->
+    <insert id="insertArticle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `article`
+        (`article_id`,`title`,`author`,`state`,`content`)
+        VALUES(
+        #{articleId},#{title},#{author},#{state},#{content}
+        )
+    </insert>
+
+
 </mapper>

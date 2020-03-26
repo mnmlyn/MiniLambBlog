@@ -24,4 +24,12 @@ public interface ArticleService {
      * @return
      */
     List<ArticleDO> listArticleSimple();
+
+    /**
+     * 插入一篇文章
+     *
+     * @param articleDO 文章实体
+     * @return
+     */
+    int insertArticle(ArticleDO articleDO);
 }

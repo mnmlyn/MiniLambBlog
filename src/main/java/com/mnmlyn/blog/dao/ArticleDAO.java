@@ -26,4 +26,12 @@ public interface ArticleDAO {
      * @return
      */
     List<ArticleDO> listArticleSimple();
+
+    /**
+     * 插入一篇文章
+     *
+     * @param articleDO 文章信息
+     * @return 返回插入的条目数量
+     */
+    int insertArticle(ArticleDO articleDO);
 }
