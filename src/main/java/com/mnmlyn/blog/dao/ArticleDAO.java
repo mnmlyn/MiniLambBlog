@@ -28,6 +28,13 @@ public interface ArticleDAO {
     List<ArticleDO> listArticleSimple();
 
     /**
+     * 查找最大的article_id
+     *
+     * @return
+     */
+    int queryMaxArticleId();
+
+    /**
      * 插入一篇文章
      *
      * @param articleDO 文章信息

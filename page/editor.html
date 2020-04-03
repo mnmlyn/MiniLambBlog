@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>编辑</title>
+    <meta charset="UTF-8">
+    <!-- Bootstrap-->
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+        }
+        .mb-container {
+            height: 100%;
+        }
+        #editor {
+            width: 40%;
+            position: absolute;
+            top: 35px;
+            bottom: 0;
+            left: 0;
+            padding: 1px;
+        }
+        input[type=file] {
+            display: inline;
+        }
+        #md{
+            width: 100%;
+            height: 100%;
+            resize: none;
+        }
+        #mdhtml{
+            position: absolute;
+            left: 40%;
+            right: 10px;
+            height: 100%;
+            border: solid 1px darkgrey;
+            margin-left: 10px;
+            overflow: scroll;
+        }
+        #title {
+            width: 400px;
+        }
+        @media(max-width: 560px) {
+            #editor {
+                top: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="mb-container">
+    <form class="form-inline">
+        <input type="button" class="btn btn-success" id="postBlog" value="发表" onclick="postData(false)">
+        <input type="button" class="btn btn-primary" id="saveBlog" value="存草稿" onclick="postData(true)">
+        <input type="button" class="btn btn-info" id="fullScreen" value="预览">
+        <input type="button" class="btn btn-warning" id="uploadPic" value="图片" data-toggle="modal" data-target="#myModal" tabindex="-1">
+        <label class="sr-only" for="title">题目</label>
+        <input type="text" class="form-control" id="title" placeholder="请输入题目">
+        <input type="hidden" id="postKey" value="1476">
+        <input type="hidden" id="getKey" value="1476">
+    </form>
+    <div id="editor">
+        <textarea id="md" placeholder="请输入Markdown格式的文本"></textarea>
+    </div>
+    <div id="mdhtml">
+        <p>此处将显示预览</p>
+    </div>
+</div>
+
+<!-- 插入图片Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">插入图片</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">插入</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $("#md").on("keyup blur",function () {
+        $('#mdhtml').html(marked($("#md").val()))
+    });
+
+    function isEmpty(data) {
+        return data.length == 0 || $.trim(data).length == 0;
+    }
+
+    // 校验
+    function validate(formData) {
+        return !(isEmpty(formData.get("title"))
+            || isEmpty(formData.get("md"))
+            || isEmpty(formData.get("content"))
+            || isEmpty(formData.get("isDraft")));
+    }
+
+    // 提交数据
+    function postData(isDraft){
+        var formData = new FormData();
+        formData.append('md', $("#md").val());
+        formData.append('content', $("#mdhtml").html());
+        formData.append('isDraft', isDraft);
+        formData.append('title', $("#title").val());
+        formData.append('postKey', $("#postKey").val());
+        if (!validate(formData)) {
+            alert("题目或内容为空");
+            return;
+        }
+        $.ajax({
+            url:'insert', /*接口域名地址*/
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+                console.log(res.data);
+            }
+        })
+    }
+
+    // 预览与编辑切换
+    var isEdit = true;
+    $("#fullScreen").click(function(){
+        if(isEdit) {
+            isEdit = false;
+            $("#fullScreen").val("编辑");
+            $("#editor").css("display", "none");
+            $("#mdhtml").css("left", "0")
+                .css("overflow", "auto").css("height", "auto");
+            $("html,body").css("overflow-y", "auto");
+        } else {
+            isEdit = true;
+            $("#fullScreen").val("预览");
+            $("#editor").css("display", "");
+            $("#mdhtml").css("left", "40%")
+                .css("overflow", "scroll").css("height", "100%");
+            $("html,body").css("overflow-y", "hidden");
+        }
+
+    });
+</script>
+
+</html>

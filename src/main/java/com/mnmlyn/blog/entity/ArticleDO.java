@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class ArticleDO {
     private Integer id;
-    private String articleId;
+    private Integer articleId;
     private String title;
     private String author;
     private Date gmtCreate;

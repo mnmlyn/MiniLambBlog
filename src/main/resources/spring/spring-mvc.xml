@@ -41,12 +41,37 @@
     <!-- 包扫描-->
     <context:component-scan base-package="com.mnmlyn.blog.controller"/>
 
+    <!-- 模板解析器 -->
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <!-- 前缀配置 -->
+        <property name="prefix" value="/WEB-INF/html/"/>
+        <!-- 后缀配置 -->
+        <property name="suffix" value=".html"/>
+        <!-- 模板类型 -->
+        <property name="templateMode" value="HTML"/>
+        <!-- 不使用缓存 -->
+        <property name="cacheable" value="false"/>
+        <!-- 编码类型 -->
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- Spring模板引擎配置 -->
+    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+
     <!-- 视图解析器 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!-- 前缀，给Controller返回的视图名自动加上前缀 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <!-- 后缀，同上，自动加后缀 -->
-        <property name="suffix" value=".jsp"/>
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- 上传解析器，用于解析multipart/form-data请求 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 设定上传的最大值，单位字节，5MB -->
+        <property name="maxUploadSize" value="5242880" />
     </bean>
 
 </beans>

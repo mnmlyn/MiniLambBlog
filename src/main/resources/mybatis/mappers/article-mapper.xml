@@ -5,7 +5,7 @@
 <mapper namespace="article">
     <resultMap id="ArticleResultMap" type="com.mnmlyn.blog.entity.ArticleDO">
         <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="article_id" jdbcType="VARCHAR" property="articleId" />
+        <result column="article_id" jdbcType="INTEGER" property="articleId" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="author" jdbcType="VARCHAR" property="author" />
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -34,6 +34,11 @@
         SELECT
         <include refid="article_simple_column"/>
         FROM article WHERE state=1
+    </select>
+
+    <select id="queryMaxArticleId" resultType="java.lang.Integer">
+        SELECT MAX(article_id)
+        FROM article
     </select>
 
     <!-- 插入一篇文章 -->

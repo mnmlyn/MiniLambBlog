@@ -26,7 +26,19 @@ public class ArticleDAOImpl extends BaseDAO implements ArticleDAO {
     }
 
     @Override
+    public int queryMaxArticleId() {
+        Integer maxArticleId = getSqlSessionTemplate().selectOne("article.queryMaxArticleId");
+        return maxArticleId == null ? 0 : maxArticleId;
+    }
+
+    @Override
     public int insertArticle(ArticleDO articleDO) {
-        return getSqlSessionTemplate().insert("article.insertArticle", articleDO);
+        if (articleDO.getArticleId() == null) {
+            int articleId = queryMaxArticleId() + 1;
+            System.out.println("新的id为"+ articleId);
+            articleDO.setArticleId(articleId);
+        }
+        getSqlSessionTemplate().insert("article.insertArticle", articleDO);
+        return articleDO.getArticleId();
     }
 }
