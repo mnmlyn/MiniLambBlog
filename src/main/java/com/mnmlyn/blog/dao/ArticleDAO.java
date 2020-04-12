@@ -28,6 +28,20 @@ public interface ArticleDAO {
     List<ArticleDO> listArticleSimple();
 
     /**
+     * 根据文章类型列出文章摘要信息
+     *
+     * @param type
+     * @return
+     */
+    List<ArticleDO> listArticleSummaryByType(Integer type);
+
+    /**
+     * 列出所有文章摘要
+     * @return
+     */
+    List<ArticleDO> listArticleSummary();
+
+    /**
      * 查找最大的article_id
      *
      * @return

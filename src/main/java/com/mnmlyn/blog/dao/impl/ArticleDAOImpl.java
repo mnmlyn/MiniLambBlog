@@ -26,6 +26,16 @@ public class ArticleDAOImpl extends BaseDAO implements ArticleDAO {
     }
 
     @Override
+    public List<ArticleDO> listArticleSummaryByType(Integer type) {
+        return getSqlSessionTemplate().selectList("article.listArticleSummaryByType", type);
+    }
+
+    @Override
+    public List<ArticleDO> listArticleSummary() {
+        return getSqlSessionTemplate().selectList("article.listArticleSummary");
+    }
+
+    @Override
     public int queryMaxArticleId() {
         Integer maxArticleId = getSqlSessionTemplate().selectOne("article.queryMaxArticleId");
         return maxArticleId == null ? 0 : maxArticleId;

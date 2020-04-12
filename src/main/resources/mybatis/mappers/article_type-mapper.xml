@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="article_type">
+    <resultMap id="Article_Type" type="com.mnmlyn.blog.entity.ArticleTypeDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+    </resultMap>
+
+    <sql id="all_column">
+        id,type_name
+    </sql>
+
+    <select id="listAllArticleType" resultMap="Article_Type">
+        SELECT
+        <include refid="all_column"/>
+        FROM
+        article_type
+    </select>
+</mapper>

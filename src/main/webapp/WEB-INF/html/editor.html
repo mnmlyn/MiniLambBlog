@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <!-- Bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
     <style>
         html, body {
             width: 100%;
@@ -57,10 +58,11 @@
 <body>
 <div class="mb-container">
     <form class="form-inline">
-        <input type="button" class="btn btn-success" id="postBlog" value="发表" onclick="postData(false)">
+<!--        /* onclick="postData(false)" */-->
+        <input type="button" class="btn btn-success" value="发表" onclick="validateShowPost()">
         <input type="button" class="btn btn-primary" id="saveBlog" value="存草稿" onclick="postData(true)">
         <input type="button" class="btn btn-info" id="fullScreen" value="预览">
-        <input type="button" class="btn btn-warning" id="insertPic" value="图片" data-toggle="modal" data-target="#myModal" tabindex="-1">
+        <input type="button" class="btn btn-warning" id="insertPic" value="图片" data-toggle="modal" data-target="#picInsertModal" tabindex="-1">
         <label class="sr-only" for="title">题目</label>
         <input type="text" class="form-control" id="title" placeholder="请输入题目">
         <input type="hidden" id="postKey" value="1476">
@@ -70,25 +72,25 @@
     <div id="editor">
         <textarea id="md" placeholder="请输入Markdown格式的文本"></textarea>
     </div>
-    <div id="mdhtml">
+    <div id="mdhtml" class="mb-article-content">
         <p>此处将显示预览</p>
     </div>
 </div>
 
 <!-- 插入图片Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="picInsertModal" tabindex="-1" role="dialog" aria-labelledby="picInsertModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">插入图片</h4>
+                <h4 class="modal-title" id="picInsertModalLabel">插入图片</h4>
             </div>
             <div class="modal-body">
                 <div>
                     <input id="uploadPic" type="file" accept="image/x-png,image/gif,image/jpeg,image/bmp"/>
                 </div>
                 <div>
-                    <img id="imgPrev" src="http://www.flybridal.com/js/jiaoyou.gif" alt="预览"/>
+                    <img id="imgPrev" th:src="@{/static/img/postPic.gif}" alt="预览"/>
                     <p id="imgPrevTip" class="text-danger"></p>
                 </div>
             </div>
@@ -100,10 +102,45 @@
     </div>
 </div>
 
+<!-- 插入图片Modal -->
+<div class="modal fade" id="postArticleModal" tabindex="-1" role="dialog" aria-labelledby="postArticleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="postArticleModalLabel">发表文章</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" id="title_in_modal">此处是题目</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_type_select" class="col-sm-2 control-label">文章类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="article_type_select">
+                                <option value="0">正在获取类型...</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="postBlog" onclick="postData(false)">发表</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/summary.js}"></script>
 <script th:inline="javascript" type="text/javascript">
     $("#md").on("keyup blur",function () {
         $('#mdhtml').html(marked($("#md").val()))
@@ -113,27 +150,41 @@
         return data.length == 0 || $.trim(data).length == 0;
     }
 
+    function canPost() {
+        return !isEmpty($("#md").val()) &&
+                !isEmpty($("#mdhtml").html()) &&
+                !isEmpty($("#title").val());
+    }
+
     // 校验
     function validate(formData) {
         return !(isEmpty(formData.get("title"))
             || isEmpty(formData.get("md"))
             || isEmpty(formData.get("content"))
-            || isEmpty(formData.get("isDraft")));
+            || isEmpty(formData.get("isDraft"))
+            || isEmpty(formData.get("articleType"))
+            || isEmpty(formData.get("summary")));
     }
 
     // 提交数据
     function postData(isDraft){
         var formData = new FormData();
         formData.append('md', $("#md").val());
-        formData.append('content', $("#mdhtml").html());
+        var articleHtml = $("#mdhtml").html();
+        formData.append('content', articleHtml);
         formData.append('isDraft', isDraft);
         formData.append('title', $("#title").val());
         formData.append('postKey', $("#postKey").val());
         formData.append('getKey', $("#getKey").val());
+        var articleType = isDraft ? "0" : $("#article_type_select").val();
+        formData.append('articleType', articleType);
+        var summary = Generate_Brief(articleHtml, 500);
+        formData.append('summary', summary);
         if (!validate(formData)) {
             alert("题目或内容为空");
             return;
         }
+        $("#postBlog").attr("disabled","disabled");
         $.ajax({
             url:'insert', /*接口域名地址*/
             type:'post',
@@ -149,13 +200,48 @@
                     window.location.replace(ctxPath+"article/"+jsonObj.data);
                 } else {
                     alert(jsonObj.message);
+                    $("#postBlog").removeAttr("disabled");
                 }
             },
-            fail:function (err) {
+            error:function (err) {
                 console.log(err.data);
                 alert(err);
+                $("#postBlog").removeAttr("disabled");
             }
         })
+    }
+
+    function validateShowPost() {
+        if (!canPost()) {
+            alert("题目或内容为空");
+            return;
+        }
+        $("#postBlog").attr("disabled","disabled");
+        $("#article_type_select").empty();
+        $("#article_type_select").append('<option value="0">正在获取类型...</option>');
+        $("#title_in_modal").text($("#title").val());
+        $.ajax({
+            url:'articleTypes',
+            type:'get',
+            success:function (res) {
+                var jsonObj = $.parseJSON(res);
+                if (jsonObj.code == "200") {
+                    $("#article_type_select").empty();
+                    $.each(jsonObj.data,function (index, value) {
+                        $("#article_type_select").append('<option value="'+ value.id +'">' + value.typeName+ '</option>');
+                    });
+                    $("#postBlog").removeAttr("disabled");
+                } else {
+                    $("#article_type_select").empty();
+                    $("#article_type_select").append('<option value="0">获取文章分类失败！</option>');
+                }
+            },
+            error:function () {
+                $("#article_type_select").empty();
+                $("#article_type_select").append('<option value="0">获取文章分类失败！</option>');
+            }
+        });
+        $("#postArticleModal").modal("show");
     }
 
     // 预览与编辑切换
@@ -226,8 +312,7 @@
             contentType: false,
             processData: false,
             success:function (res) {
-                alert('upload success');
-                $("#myModal").modal("hide");
+                $("#picInsertModal").modal("hide");
                 $("#btnUploadPic").removeAttr("disabled");
                 console.log(res.data);
                 var jsonObj = $.parseJSON(res);
@@ -292,9 +377,6 @@
             })
         })(jQuery);
         /* 在textarea处插入文本--Ending */
-    });
-    $(document).ready(function(){
-        // $("#test_in").insertContent("<upload/day_140627/201406271546349972.jpg>");
     });
 
 </script>

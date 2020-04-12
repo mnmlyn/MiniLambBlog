@@ -21,5 +21,8 @@ public class ArticleDO {
     private Date gmtCreate;
     private Date gmtModify;
     private Integer state;
+    private String mdContent;
     private String content;
+    private Integer type;
+    private String summary;
 }

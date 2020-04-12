@@ -1,5 +1,6 @@
 package com.mnmlyn.blog.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mnmlyn.blog.entity.ArticleDO;
 
 import java.util.List;
@@ -24,6 +25,22 @@ public interface ArticleService {
      * @return
      */
     List<ArticleDO> listArticleSimple();
+
+    /**
+     * 根据文章类型列出文章
+     *
+     * @param articleType
+     * @return
+     */
+    PageInfo<ArticleDO> listArticleSummaryByType(Integer articleType, Integer pageNo, Integer pageSize);
+
+    /**
+     * 分页列出所有的文章摘要
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo<ArticleDO> listArticleSummary(Integer pageNo, Integer pageSize);
 
     /**
      * 插入一篇文章

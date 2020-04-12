@@ -218,7 +218,7 @@ footer .mb-links a:hover {
 }
 
 /* detail */
-.mb-detail {
+.mb-detail, .mb-article-list-item {
     background-color: #fff;
     padding: 10px 15px 10px 20px;
     font-size: 16px;
@@ -245,4 +245,96 @@ footer .mb-links a:hover {
 
 .mb-article-info li:not(:last-child) {
     padding-right: 20px;
+}
+
+/* list */
+.mb-article-list-item {
+    margin-bottom: 30px;
+}
+.mb-article-title {
+    border-bottom: 2px solid #00a0e9;
+    margin-bottom: 20px;
+}
+.mb-article-title h1 {
+    margin: 20px 0 10px 0;
+    font-size: 30px;
+    color: #00a0e9;
+    font-weight: 700;
+}
+.mb-article-title a, a:hover {
+    color: #00a0e9;
+    text-decoration: none;
+}
+
+/* common article */
+.mb-article-content {
+    font-size: 16px;
+    font-weight: 400;
+}
+.mb-article-content h1,h2,h3,h4,h5,h6 {
+    margin: 20px 0 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0;
+}
+.mb-article-content h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+.mb-article-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0;
+    margin: 20px 0 10px 0;
+}
+.mb-article-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+.mb-article-content img {
+    max-width: 100%;
+}
+.mb-article-read-more {
+    margin-top: 20px;
+}
+.mb-article-read-more a {
+    display: inline-block;
+    line-height: 1em;
+    padding: 6px 15px;
+    border-radius: 15px;
+    background: #ddd;
+    color: #817c7c;
+    text-decoration: none;
+}
+.mb-article-read-more a:hover {
+    background: #2ca6cb;
+    color: #fff;
+    text-decoration: none;
+}
+.mb-article-type-tag {
+    border-top: 1px solid #afafaf;
+    margin-top: 20px;
+    padding: 20px 5px;
+}
+.mb-article-type-tag div {
+    display: inline-block;
+    margin-right: 20px;
+}
+.mb-article-type-tag a {
+    display: inline-block;
+    padding: 3px;
+    color: #817c7c;
+    border-radius: 13px;
+    text-decoration: none;
+    font-size: 15px;
+}
+.mb-article-type-tag a:hover {
+    background: #2ca6cb;
+    color: #fff;
+    text-decoration: none;
+}
+
+.pagination {
+    margin: 0 0 20px 0;
+    font-size: 16px;
 }

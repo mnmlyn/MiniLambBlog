@@ -11,15 +11,22 @@
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
         <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
         <result column="state" jdbcType="TINYINT" property="state" />
+        <result column="md_content" jdbcType="LONGVARCHAR" property="mdContent" />
         <result column="content" jdbcType="LONGVARCHAR" property="content" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="summary" jdbcType="LONGVARCHAR" property="summary" />
     </resultMap>
 
     <sql id="article_all_column">
-        id,article_id,title,author,gmt_create,gmt_modify,state,content
+        id,article_id,title,author,gmt_create,gmt_modify,state,md_content,content,`type`
     </sql>
 
     <sql id="article_simple_column">
         article_id,title,gmt_create,author
+    </sql>
+
+    <sql id="article_list_summary_column">
+        article_id,title,gmt_create,author,summary,`type`
     </sql>
 
     <select id="queryArticleByArticleId" resultMap="ArticleResultMap">
@@ -36,6 +43,20 @@
         FROM article WHERE state=1
     </select>
 
+    <select id="listArticleSummaryByType" resultMap="ArticleResultMap">
+        SELECT
+        <include refid="article_list_summary_column"/>
+        FROM article WHERE state=1 AND `type`=#{type}
+        ORDER BY gmt_create DESC
+    </select>
+
+    <select id="listArticleSummary" resultMap="ArticleResultMap">
+        SELECT
+        <include refid="article_list_summary_column"/>
+        FROM article WHERE state=1
+        ORDER BY gmt_create DESC
+    </select>
+
     <select id="queryMaxArticleId" resultType="java.lang.Integer">
         SELECT MAX(article_id)
         FROM article
@@ -44,9 +65,9 @@
     <!-- 插入一篇文章 -->
     <insert id="insertArticle" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `article`
-        (`article_id`,`title`,`author`,`state`,`content`)
+        (`article_id`,`title`,`author`,`state`,`content`,`md_content`,`type`, `summary`)
         VALUES(
-        #{articleId},#{title},#{author},#{state},#{content}
+        #{articleId},#{title},#{author},#{state},#{content},#{mdContent},#{type},#{summary}
         )
     </insert>
 

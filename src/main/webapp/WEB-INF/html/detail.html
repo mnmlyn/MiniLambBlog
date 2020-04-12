@@ -3,42 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
-    <title>领地</title>
+    <title>滴水穿石</title>
     <!-- Bootstrap-->
     <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/css/mb.css}" rel="stylesheet"/>
 </head>
 <body>
 <!-- 导航条-->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">滴水穿石</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">Java学习</a></li>
-                <li><a href="#">前端学习</a></li>
-                <li><a href="#">Linux内核</a></li>
-
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">关于</a></li>
-
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+<div th:replace="component/common :: fg-navbar"></div>
 
 <!-- 页面内容 -->
 <div class="container-fluid" id="main-content">
@@ -50,8 +22,10 @@
 
             <div class="mb-note">
                 <div class="mb-detail">
-                    <!--/*@thymesVar id="article" type="com.mnmlyn.blog.entity.ArticleDO"*/-->
-                    <h1 th:text="${article.getTitle()}">文章标题在此处，醒目</h1>
+                    <div class="mb-article-title">
+                        <!--/*@thymesVar id="article" type="com.mnmlyn.blog.entity.ArticleDO"*/-->
+                        <h1 th:text="${article.getTitle()}">文章标题在此处，醒目</h1>
+                    </div>
 
                     <!-- 文章作者及阅读数量信息 -->
                     <div class="mb-article-info">
@@ -62,11 +36,11 @@
                             </li>
                             <li>
                                 <span>发布日期：</span>
-                                <span th:text="${article.getGmtModify()}">2020年3月25日</span>
+                                <span th:text="${#dates.format(article.gmtCreate,'yyyy年MM月dd日 HH:mm')}">2020年3月25日</span>
                             </li>
-                            <li>
-                                <span>浏览次数：100</span>
-                            </li>
+<!--                            <li>-->
+<!--                                <span>浏览次数：100</span>-->
+<!--                            </li>-->
                         </ul>
                     </div>
 
@@ -74,6 +48,21 @@
 
                     </div>
 
+                    <div class="mb-article-type-tag">
+                        <div>
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                            <!--/*@thymesVar id="articleTypeName" type="java.lang.String"*/-->
+                            <a th:href="@{'/type/' + ${article.type}}" th:text="${articleTypeName}">Java学习</a>
+                        </div>
+<!--                        <div>-->
+<!--                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>-->
+<!--                            <a href="#">Java</a>-->
+<!--                            <a href="#">开发</a>-->
+<!--                            <a href="#">InputStream</a>-->
+<!--                            <a href="#">内存管理</a>-->
+<!--                            <a href="#">技术学习</a>-->
+<!--                        </div>-->
+                    </div>
                 </div>
             </div>
 
@@ -81,76 +70,26 @@
 
         <!-- 右侧边栏内容 -->
         <div class="col-md-3" id="side-content-col">
-            <div class="row">
-                <div class="col-md-12 col-sm-4 col-xs-6">
-                    <div class="mb-side-note">
-                        <h1>常用标签</h1>
-                        <div class="mb-side-note-content">
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 col-sm-4 col-xs-6">-->
+<!--                    <div class="mb-side-note">-->
+<!--                        <h1>常用标签</h1>-->
+<!--                        <div class="mb-side-note-content">-->
+<!--                            <p>sdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 
 </div>
 
 <!-- 页脚 -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <ul class="mb-links">
-                    <li>
-                        <span>你好，人类！</span>
-                    </li>
-                    <li>
-                        <a href="#">关于本站</a>
-                    </li>
-                    <li>
-                        <a href="#">Java</a>
-                    </li>
-                    <li>
-                        <a href="#">前端</a>
-                    </li>
-                    <li>
-                        <a href="#">Linux内核</a>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="col-md-5">
-                <ul class="mb-links">
-                    <li>
-                        <span>Copyright &copy; 2020, mnmlyn All Rights Reserved.</span>
-                    </li>
-                    <li>
-                        <a href="http://beian.miit.gov.cn">京ICP备19042216号-1</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+<div th:replace="component/common :: fg-footer"></div>
 
 <!-- 回到顶部 -->
-<div class="mb-to-top">
-    <ul>
-        <li>
-            <a class="btn btn-default" href="#" role="button">
-                回到顶部
-            </a>
-        </li>
-    </ul>
-</div>
+<div th:replace="component/common :: fg-goto-top"></div>
 
 
 <!-- Bootstrap core JavaScript
